@@ -1,0 +1,37 @@
+OBJECT Table 50001 Users
+{
+  OBJECT-PROPERTIES
+  {
+    Date=03/03/23;
+    Time=16:56:19;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+  }
+  FIELDS
+  {
+    { 1   ;   ;phone               ;Integer        }
+    { 2   ;   ;name                ;Text100        }
+    { 3   ;   ;surname             ;Text250        }
+    { 4   ;   ;password            ;Text100        }
+    { 5   ;   ;email               ;Text250        }
+    { 6   ;   ;validated           ;Boolean        }
+    { 7   ;   ;session_token       ;Text100        }
+  }
+  KEYS
+  {
+    {    ;phone                                   ;Clustered=Yes }
+  }
+  FIELDGROUPS
+  {
+  }
+  CODE
+  {
+
+    BEGIN
+    END.
+  }
+}
+
