@@ -1,23 +1,65 @@
-OBJECT Codeunit 50060 Menu_CORN
+OBJECT Codeunit 50035 Menu_CORN
 {
   OBJECT-PROPERTIES
   {
     Date=06/03/23;
-    Time=19:28:04;
+    Time=22:02:04;
     Modified=Yes;
     Version List=;
   }
   PROPERTIES
   {
     OnRun=BEGIN
+
+            Dialogo.OPEN('Insertant opci¢ del men£\Codi: #1######\Descripci¢: #2######');
+            Menu.DELETEALL;
+            Menu.Codi := 1;
+            Menu.Descripcio := 'Consulta taula d"usuaris';
+            Menu.INSERT;
+            Menu.INIT;
+            Dialogo.UPDATE(1, FORMAT(1));
+            Dialogo.UPDATE(2, 'Consulta taula d"usuaris');
+            SLEEP(2200);
+
+            Menu.Codi := 2;
+            Menu.Descripcio := 'Consulta transaccions d"un usuari';
+            Menu.INSERT;
+            Menu.INIT;
+            Dialogo.UPDATE(1, FORMAT(2));
+            Dialogo.UPDATE(2, 'Consulta transaccions d"un usuari');
+            SLEEP(2200);
+
+            Menu.Codi := 3;
+            Menu.Descripcio := 'P…gina amb tots els usuaris';
+            Menu.INSERT;
+            Menu.INIT;
+            Dialogo.UPDATE(1, FORMAT(3));
+            Dialogo.UPDATE(2, 'P…gina amb tots els usuaris');
+            SLEEP(2200);
+
+            Menu.Codi := 4;
+            Menu.Descripcio := 'Estad¡stica del nombre de transaccions per dia';
+            Menu.INSERT;
+            Menu.INIT;
+            Dialogo.UPDATE(1, FORMAT(4));
+            Dialogo.UPDATE(2, 'Estad¡stica del nombre de transaccions per dia');
+            SLEEP(2200);
+
+            Menu.Codi := 5;
+            Menu.Descripcio := 'Estad¡stica de la quantitat de transaccions per dia';
+            Menu.INSERT;
+            Menu.INIT;
+            Dialogo.UPDATE(1, FORMAT(5));
+            Dialogo.UPDATE(2, 'Estad¡stica de la quantitat de transaccions per dia');
+            SLEEP(2200);
           END;
 
   }
   CODE
   {
     VAR
-      Menu@1106000000 : Record 50005;
-      MeuDialeg@1106000001 : Dialog;
+      Menu@1106000000 : Record 50015;
+      Dialogo@1106000001 : Dialog;
 
     BEGIN
     END.
