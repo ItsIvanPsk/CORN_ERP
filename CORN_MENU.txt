@@ -1,0 +1,26 @@
+OBJECT Codeunit 50060 Menu_CORN
+{
+  OBJECT-PROPERTIES
+  {
+    Date=06/03/23;
+    Time=19:28:04;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Menu@1106000000 : Record 50005;
+      MeuDialeg@1106000001 : Dialog;
+
+    BEGIN
+    END.
+  }
+}
+

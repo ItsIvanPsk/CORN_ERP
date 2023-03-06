@@ -2,8 +2,8 @@ OBJECT Codeunit 50015 CORN_ERP
 {
   OBJECT-PROPERTIES
   {
-    Date=03/03/23;
-    Time=16:58:12;
+    Date=06/03/23;
+    Time=18:10:10;
     Modified=Yes;
     Version List=;
   }
@@ -15,32 +15,51 @@ OBJECT Codeunit 50015 CORN_ERP
             menuActiu := TRUE;
 
             WHILE menuActiu DO BEGIN
-            input := Window.InputBox('Escull una opcio entre 1 i 2, altre caracter SORTIR'
+            input := Window.InputBox('Escull una opcio entre 1 i 2, altre caracter SORTIR\1. Mostrar usuaris\2. Mostrar transaccions per usuari'
             , 'CORN ERP', '', 100, 10);
 
             CASE input OF
               '1':
                 BEGIN
-                  Window.MsgBox(opcio1, 0, '');
-                  MeuDialeg.OPEN('Users\Telefon: #1######\Nom: #2######\Cognom: #3######\Contrasenya: #4######\Email: #5######\Validat: #6######');
+                  MeuDialeg.OPEN('Users\Telefon: #1######\Nom: #2######\Cognom: #3######\Contrasenya: #4######\Email: #5######\Validat: #6######\Balance: #7######');
 
                   WITH Users DO BEGIN
+                    SETCURRENTKEY(name);
+                    ASCENDING(TRUE);
                     IF FIND('-') THEN
                       REPEAT
-                        MeuDialeg.UPDATE(1,phone);
-                        MeuDialeg.UPDATE(2,name);
-                        MeuDialeg.UPDATE(3,surname);
-                        MeuDialeg.UPDATE(4,password);
-                        MeuDialeg.UPDATE(5,email);
-                        MeuDialeg.UPDATE(6,validated);
+                        MeuDialeg.UPDATE(1,Users.phone);
+                        MeuDialeg.UPDATE(2,Users.name);
+                        MeuDialeg.UPDATE(3,Users.surname);
+                        MeuDialeg.UPDATE(4,Users.password);
+                        MeuDialeg.UPDATE(5,Users.email);
+                        MeuDialeg.UPDATE(6,FORMAT(Users.validated));
+                        MeuDialeg.UPDATE(7, FORMAT(Users.balance));
                         SLEEP(1000);
                       UNTIL NEXT = 0;
                   END;
                 END;
               '2':
                 BEGIN
-                  Window.MsgBox(opcio2, 0, '');
+                  input := Window.InputBox('Introdueix el compte:'
+                  , 'CORN ERP', '', 100, 10);
+                  MeuDialeg.OPEN('Transaccions del compte\Destinaci¢: #1######\Quantitat: #2######\Token: #3######\Acceptada: #4######\Hora de creaci¢: #5######');
+                  TransactionsDef.SETFILTER(TransactionsDef.origin, FORMAT(input));
+                  WITH TransactionsDef DO BEGIN
+                    IF FIND('-') THEN
+                      REPEAT
+                        MeuDialeg.UPDATE(1, destination);
+                        MeuDialeg.UPDATE(2, amount);
+                        MeuDialeg.UPDATE(3, token);
+                        MeuDialeg.UPDATE(4, accepted);
+                        MeuDialeg.UPDATE(5, timeSetup);
+                      UNTIL NEXT = 0;
+                  END;
+                END;
 
+               ELSE
+                BEGIN
+                  menuActiu := FALSE;
                 END;
 
               END;
@@ -58,7 +77,7 @@ OBJECT Codeunit 50015 CORN_ERP
       menuActiu@1106000000 : Boolean;
       MeuDialeg@1106000005 : Dialog;
       Users@1106000006 : Record 50001;
-      Transactions@1106000007 : Record 50002;
+      TransactionsDef@1106000007 : Record 50003;
       opcio1@1106000009 : TextConst 'ENU=Mostrar informaci¢ de cada compte';
       opcio2@1106000008 : TextConst 'ENU=Mostrar transaccions per client';
 

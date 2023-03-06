@@ -1,0 +1,7 @@
+"email";"name";"surname";"phone";"password";"validated";"balance";"session_token"
+"test2@test.com";"Edu";"Macian";"111111111";"password2";1;500.0;""
+"test4@test.com";"Albert";"Palacios";"222222222";"password4";1;500.0;""
+"test5@test.com";"Lluis";"Villa";"333333333";"password5";1;500.0;""
+"test3@test.com";"Nerea";"Lopez";"444444444";"password3";1;500.0;""
+"test1@test.com";"Ivan";"Figueredo";"555555555";"password1";1;500.0;"bacfb150-193b-43ea-ab20-2cc4342c35e0"
+"test6@test.com";"Enric";"Mieza";"666666666";"password6";1;500.0;""
