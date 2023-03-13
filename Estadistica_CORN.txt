@@ -1,0 +1,76 @@
+OBJECT Codeunit 50040 Estadistica_CORN
+{
+  OBJECT-PROPERTIES
+  {
+    Date=13/03/23;
+    Time=18:07:07;
+    Modified=Yes;
+    Version List=;
+  }
+  PROPERTIES
+  {
+    OnRun=BEGIN
+
+            dialogo.OPEN('Dia Anterior: #1######\Nombre de transaccions: #3######\Quantitat: #4######');
+            cntTransaccions := 1;
+            amountTotal := 0;
+            cnt := 0;
+
+            WITH TransactionsDef DO BEGIN
+              SETCURRENTKEY(timeSetup);
+              ASCENDING(TRUE);
+              IF FIND('-') THEN
+                REPEAT
+                  diaActual := DT2DATE(TransactionsDef.timeSetup);
+                  amountActual := TransactionsDef.amount;
+                  IF diaActual <> diaAnterior THEN BEGIN
+                    IF cnt = 0 THEN BEGIN
+                      cnt := cnt + 1;
+                      diaAnterior := DT2DATE(TransactionsDef.timeSetup);
+                      cntTransaccions := 1;
+                      amountTotal := amountActual;
+                      END
+                    ELSE BEGIN
+                      dialogo.UPDATE(1, diaAnterior);
+                      dialogo.UPDATE(3, cntTransaccions);
+                      dialogo.UPDATE(4, amountTotal);
+                      SLEEP(3000);
+                      diaAnterior := DT2DATE(TransactionsDef.timeSetup);
+                      cntTransaccions := 1;
+                      amountTotal := amountActual;
+                      END
+                    END
+                  ELSE BEGIN
+                    cntTransaccions := cntTransaccions + 1;
+                    amountTotal := amountTotal + amountActual;
+                    END
+                UNTIL NEXT = 0;
+            END;
+
+            dialogo.UPDATE(1, diaActual);
+            dialogo.UPDATE(3, cntTransaccions);
+            dialogo.UPDATE(4, amountTotal);
+            SLEEP(3000);
+
+
+          END;
+
+  }
+  CODE
+  {
+    VAR
+      Window@1106000000 : DotNet "'Microsoft.VisualBasic, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a'.Microsoft.VisualBasic.Interaction" RUNONCLIENT;
+      dialogo@1106000001 : Dialog;
+      TransactionsDef@1106000002 : Record 50003;
+      diaAnterior@1106000003 : Date;
+      diaActual@1106000004 : Date;
+      cntTransaccions@1106000005 : Integer;
+      amountTotal@1106000006 : Integer;
+      cnt@1106000007 : Integer;
+      amountActual@1106000008 : Integer;
+
+    BEGIN
+    END.
+  }
+}
+
